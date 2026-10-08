@@ -3,7 +3,7 @@
 html { font-size: 14px; }
 
 body {
-  max-width: 54rem;
+  max-width: 65%;
   margin: 3rem auto 4rem;
   padding: 0 1.25rem;
   background: #dbeafe;
@@ -41,3 +41,5 @@ h3 + p b { color: #0f172a; }
 a { color: #2c5282; text-decoration: none; border-bottom: 1px solid; }
 
 .todo { background: #fff3b0; }
+
+@media (max-width: 60rem) { body { max-width: none; } }
