@@ -35,8 +35,8 @@ p { margin: 0 0 1rem; }
 .muted { color: #475569; }
 .open { margin-bottom: 0; }
 .links a { margin-right: 1.1rem; }
-.stats { margin-bottom: 0.4rem; font-size: 0.95rem; color: #0f172a; }
-.stats + p { font-size: 0.93rem; color: #334155; }
+h3 + p { font-size: 0.95rem; color: #334155; }
+h3 + p b { color: #0f172a; }
 
 a { color: #2c5282; text-decoration: none; border-bottom: 1px solid; }
 
