@@ -11,6 +11,7 @@ body {
 }
 
 header { display: flex; flex-wrap: wrap; align-items: center; gap: 1.25rem; margin-bottom: 1rem; }
+header div { flex: 1 1 16rem; min-width: 0; }
 header p { margin: 0 0 0.35rem; }
 img { display: block; width: 104px; max-width: 100%; height: auto; border-radius: 50%; }
 
@@ -20,6 +21,7 @@ h3 { margin: 1rem 0 0.15rem; font-size: 1rem; }
 h3 span { font-weight: normal; }
 p { margin: 0 0 0.8rem; }
 .lead { font-size: 1.05rem; }
+.stats { margin-bottom: 0.3rem; }
 .links a { margin-right: 1rem; }
 
 a { color: #2c5282; text-decoration: none; border-bottom: 1px solid; }
