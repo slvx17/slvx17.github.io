@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>May 6 or June 5? | Salvatore Silalahi</title>
+<meta name="description" content="Building an AI deadline tool where the model may read, but may not decide.">
+<meta property="og:title" content="May 6 or June 5?">
+<meta property="og:description" content="Building an AI deadline tool where the model may read, but may not decide.">
+<meta property="og:type" content="article">
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+
+<p class="muted"><a href="../">Salvatore Silalahi</a></p>
+
+<article>
+<h1>May 6 or June 5?</h1>
+<p class="muted">October 2026 · 4 min read</p>
+
+<p>A student types: <i>“program end 05/06/2027, when is my OPT deadline?”</i></p>
+
+<p>If you grew up in the US, that’s May 6. If you grew up almost anywhere else, which describes most people asking about OPT (the work permit international students apply for after graduating), it’s June 5. Same five characters, two deadlines a month apart. File a day late and the application is denied.</p>
+
+<p>I built <a href="https://github.com/slvx17/optwise" target="_blank" rel="noopener">optwise</a>, a small tool that tells students when to file. It is a simple project: five rules from one regulation, some date math, a web page. But it ran into the one problem every AI product in a high-stakes corner eventually meets.</p>
+
+<h2>The helpful intern problem</h2>
+
+<p>Language models are wonderful at reading messy questions. “graduating may 2027 whens the last day i can aply??” is no trouble at all.</p>
+
+<p>They are also eager. Ask one about <code>05/06/2027</code> and it will not ask which you meant. It will pick one, confidently, and move on. Most of the time that’s a feature. Here, a confident guess is the worst possible answer, because the student has no way to know it was a guess.</p>
+
+<p>So the whole design came down to one sentence: <b>the model may read, but it may not decide.</b></p>
+
+<h2>How that works</h2>
+
+<p>Every date the student sees is computed by plain code from the regulation’s text. The model gets two narrow jobs:</p>
+
+<ol>
+<li><b>Point at the dates in the question.</b> Not interpret them, point at them: “this bit is the program end date”. Code then reads that bit. If it says <code>05/06/2027</code>, code notices it can be read two ways and asks, with two buttons: <i>May 6, 2027</i> or <i>June 5, 2027</i>. If it says “summer 2027”, code says that’s somewhere between June 1 and August 31, and tells the student where the exact date is printed (their I-20, page 1).</li>
+<li><b>Explain the plan in words.</b> Then code checks the explanation. Any date or number in it must have come from the plan or from the student. If it didn’t, the explanation is thrown away and the student sees the plan without it.</li>
+</ol>
+
+<p>The plan itself never depends on the model. If the AI is down, slow, or over budget, the page still works; it just gets quieter.</p>
+
+<h2>The intern, caught in the act</h2>
+
+<p>I wrote 67 test questions, the messy kind real students ask, and ran them through. The checks above caught the model doing exactly what I feared:</p>
+
+<ul>
+<li>It picked May 6 for <code>05/06/2027</code>, without asking.</li>
+<li>A student wrote “commencement is may 20”. The model helpfully added “2027”. The student never said 2027.</li>
+<li>Asked how many unemployment days were left after using 80, it did the subtraction itself: 70. Correct, as it happens. Also the one thing it isn’t allowed to do, because next time it might not be.</li>
+</ul>
+
+<p>None of those guesses reached a student. The explanation was dropped, and the page showed the plan, or asked for the date it needed.</p>
+
+<p>My favourite catch came from comparing models. A cheaper one scored 78% against 98%, which looks like “a bit worse”. Then I split the mistakes into two kinds: <i>asked when it didn’t need to</i> (costs the student a click) and <i>stated a wrong date with confidence</i> (costs the student their status). The cheaper model’s 5% of the second kind was the real story. It had filed someone’s program end date as the date their work card expires. Averages hide exactly the mistake you care about, so that one now has its own target: zero.</p>
+
+<h2>What I’d tell myself at the start</h2>
+
+<p>The AI part of this project is small. Most of the work went into deciding what the AI is <i>not</i> allowed to do, and building checks that notice when it tries anyway.</p>
+
+<p>In practice, the most useful thing the assistant says isn’t a date. It’s:</p>
+
+<blockquote>“05/06/2027” can be read two ways. Which one?</blockquote>
+
+<p>Try it: <a href="https://github.com/slvx17/optwise" target="_blank" rel="noopener">optwise</a>. Not legal advice; ask your school’s international office.</p>
+</article>
+
+<p class="muted"><a href="../">← Back to home</a></p>
+
+</body>
+</html>

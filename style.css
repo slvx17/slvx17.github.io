@@ -40,5 +40,12 @@ h3 + p b { color: #0f172a; }
 
 a { color: #2c5282; text-decoration: none; border-bottom: 1px solid; }
 
+article { margin-top: 2rem; }
+article h1 { font-size: 1.9rem; }
+article h2 { margin-top: 2.25rem; }
+article ol, article ul { padding-left: 1.4rem; margin: 0 0 1rem; }
+article li { margin-bottom: 0.5rem; }
+code { font-size: 0.92em; background: rgba(30, 41, 59, 0.08); padding: 0.05em 0.3em; border-radius: 3px; }
+blockquote { margin: 1.25rem 0; padding: 0.25rem 0 0.25rem 1rem; border-left: 3px solid #2c5282; font-size: 1.1rem; }
 
 @media (max-width: 60rem) { body { max-width: none; } }
